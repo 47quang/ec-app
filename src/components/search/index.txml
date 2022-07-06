@@ -1,0 +1,4 @@
+<view class="search-wrapper" onTap="goToSearch">
+  <icon type="search" class="search-icon" />
+  <text>Tìm kiếm công thức</text>
+</view>

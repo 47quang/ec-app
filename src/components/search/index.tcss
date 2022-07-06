@@ -1,0 +1,19 @@
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background: var(--white);
+  border-radius: 4px;
+  color: var(--gray60);
+  border: 1px solid #dddde3;
+  margin: 16px;
+}
+
+.search-wrapper text {
+  margin-left: 8px;
+  line-height: 24px;
+}
+
+.search-icon {
+  color: #808089;
+}

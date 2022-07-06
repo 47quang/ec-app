@@ -1,9 +1,26 @@
 {
-  "pages": [
-    "pages/index/index"
-  ],
+  "pages": ["pages/home/index", "pages/profile/index", "pages/order/index", "pages/search/index"],
   "window": {
     "defaultTitle": "EasyCook",
     "titleBarColor": "#F4C316"
+  },
+  "tabBar": {
+    "items": [
+      {
+        "name": "Home",
+        "pagePath": "pages/home/index",
+        "icon": "assets/icons/home.svg"
+      },
+      {
+        "name": "Order",
+        "pagePath": "pages/order/index",
+        "icon": "assets/icons/order.svg"
+      },
+      {
+        "name": "Profile",
+        "pagePath": "pages/profile/index",
+        "icon": "assets/icons/user.svg"
+      }
+    ]
   }
-} 
+}

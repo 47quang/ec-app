@@ -1,0 +1,27 @@
+<search />
+
+<text class="header">Danh mục</text>
+<view class="categories">
+  <block tiki:for="{{categories}}" tiki:key="category-{{item.id}}">
+    <view class="category-item">
+      <image src="{{item.thumbnail}}" />
+      <text>{{item.name}}</text>
+    </view>
+  </block>
+</view>
+
+<text class="header">Gợi ý dành cho bạn</text>
+<view class="recipes">
+  <block tiki:for="{{recipes}}" tiki:key="recipe-{{item.id}}">
+    <view class="recipe-item">
+      <view class="recipe-item-header">
+        <text>{{item.category.name}}</text>
+        <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
+      </view>
+      <view>
+        <image class="recipe-thumbnail" src="{{item.thumbnail}}" />
+      </view>
+      <text class="recipe-name">{{item.title}}</text>
+    </view>
+  </block>
+</view>
