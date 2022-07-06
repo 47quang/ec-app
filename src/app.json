@@ -3,8 +3,7 @@
     "pages/index/index"
   ],
   "window": {
-    "defaultTitle": "My App",
-    "titleBarColor": "#F4C316",
-    "backgroundColor": "#222222"
+    "defaultTitle": "EasyCook",
+    "titleBarColor": "#F4C316"
   }
-}
+} 

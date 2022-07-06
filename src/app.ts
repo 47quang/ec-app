@@ -6,6 +6,8 @@ App({
     console.log('App onLaunch');
     const greeter = new Greeter("my owner");
     greeter.greet();
+    console.log({options});
+    
   },
   // @ts-ignore ==> test ts ignore flag
   onShow(options) {
