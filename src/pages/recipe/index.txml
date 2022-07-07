@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="recipe-thumbnail" style="background-image: url({{recipe.thumbnail}});"></view>
+  <view class="header">
+    <text>{{recipe.title}}</text>
+    <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
+  </view>
+
+  <view class="tag-container">
+    <block tiki:for="{{recipe.tags}}" tiki:key="recipe-tag-{{item.id}}">
+      <view class="tag">{{item.name}}</view>
+    </block>
+  </view>
+
+
+  <view class="recipe-overview">
+    <view class="overview-item">
+      <text class="overview-item-title">Chuẩn bị</text>
+      <text class="overview-item-text">10 phút</text>
+    </view>
+    <view class="overview-item">
+      <text class="overview-item-title">Chế biến</text>
+      <text class="overview-item-text">20 phút</text>
+    </view>
+    <view class="overview-item">
+      <text class="overview-item-title">Độ khó</text>
+      <text class="overview-item-text">Siêu dễ</text>
+    </view>
+  </view>
+  <tabs className="tab" tabs="{{tabs}}" tabsName="recipeTab"  activeTab="{{recipeTab}}" onChange="onTabChange" onTabClick="onTabClick">
+    <tab-content key="0" tabId="{{0}}" activeTab="{{recipeTab}}">
+      <view>Che bien</view>
+    </tab-content>
+
+    <tab-content key="1" tabId="{{1}}" activeTab="{{recipeTab}}">
+      <view>Nguyen lieu</view>
+    </tab-content>
+  </tabs>
+</view>

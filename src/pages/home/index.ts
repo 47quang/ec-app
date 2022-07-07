@@ -12,6 +12,7 @@ interface Category {
 interface HomeMethod {
   getCategories(): Promise<Category[]>;
   getRecipes(): Promise<Recipe[]>;
+  goToRecipe(recipeId: string): any;
 }
 
 interface HomeData {
@@ -90,7 +91,8 @@ Page<HomeData, HomeMethod>({
       ...item,
       id: '' + Math.random() * 1000,
     }));
-    this.setData({ categories: fakeCategories, recipes: fakeRecipes });
+    fakeRecipes[2].title = 'aiden';
+    this.setData({ categories: fakeCategories, recipes });
   },
 
   async getCategories(): Promise<Category[]> {
@@ -101,5 +103,10 @@ Page<HomeData, HomeMethod>({
   async getRecipes(): Promise<Recipe[]> {
     const recipes = (await RecipeService.search('mon')) as Recipe[];
     return recipes;
+  },
+
+  goToRecipe(e: any) {
+    const recipeId = e.target.dataset.id;
+    my.navigateTo({ url: `pages/recipe/index?id=${recipeId}` });
   },
 });

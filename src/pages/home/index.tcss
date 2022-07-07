@@ -58,16 +58,31 @@
   border: 1px solid #dddde3;
   border-radius: 4px;
   padding: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe-name {
   font-size: 14px;
   font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .recipe-view-icon {
-  width: 16px;
-  height: 16px;
-  fill: #808089;
-  background-image: url('../../../assets/images/eye.png');
+  width:20px;
+  height: 20px;
+  display: block;
+}
+
+.recipe-bottom {
+  display: flex;
+  margin-top: auto;
+  flex-direction: row;
+  align-items: center;
+}
+
+.recipe-bottom > text {
+  line-height: 20px;
+  margin-left: 4px;
+  color: #808089;
 }

@@ -1,5 +1,11 @@
 {
-  "pages": ["pages/home/index", "pages/profile/index", "pages/order/index", "pages/search/index"],
+  "pages": [
+    "pages/home/index",
+    "pages/profile/index",
+    "pages/order/index",
+    "pages/search/index",
+    "pages/recipe/index"
+  ],
   "window": {
     "defaultTitle": "EasyCook",
     "titleBarColor": "#F4C316"
@@ -9,17 +15,18 @@
       {
         "name": "Home",
         "pagePath": "pages/home/index",
-        "icon": "assets/icons/home.svg"
+        "icon": "public/assets/icons/home.svg",
+        "activeIcon": "public/assets/icons/home-active.svg"
       },
       {
         "name": "Order",
         "pagePath": "pages/order/index",
-        "icon": "assets/icons/order.svg"
+        "icon": "public/assets/icons/order.svg"
       },
       {
         "name": "Profile",
         "pagePath": "pages/profile/index",
-        "icon": "assets/icons/user.svg"
+        "icon": "public/assets/icons/user.svg"
       }
     ]
   }
