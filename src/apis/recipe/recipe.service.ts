@@ -4,31 +4,12 @@ import * as queryString from 'query-string';
 
 class RecipeService {
   search(filterParams: FilterParams) {
-    const filterString: string = queryString.stringify(filterParams);
-    return new Promise((resolve, reject) => {
-      recipeRepository
-        .search(filterString)
-        .then((res) => {
-          const { data } = res;
-          if (data) resolve(data);
-        })
-        .catch((error) => {
-          console.log(error);
-          reject({});
-        });
-    });
+    const searchTerm: string = queryString.stringify(filterParams);
+    return recipeRepository.search(searchTerm);
   }
 
   getRecipeById(id: string) {
-    return new Promise((resolve, reject) => {
-      recipeRepository
-        .getRecipeById(id)
-        .then((res) => {
-          const { data } = res;
-          if (data) resolve(data.recipes[0]);
-        })
-        .catch((error) => reject(error));
-    });
+    return recipeRepository.getRecipeById(id);
   }
 }
 

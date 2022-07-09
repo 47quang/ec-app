@@ -71,7 +71,7 @@
             <view class="stepper-container">
               <!-- <stepper className="stepper-custom" onTap="onTapStepper" data-="{{item.id}}" onChange="{{(e, m) => onChangeStepper(e, m)}}" step="{{1}}" showNumber
                 value="{{item._qty}}" min="{{1}}" /> -->
-                <stepper-custom cartId="{{item.id}}" cartQty="{{item._qty}}" onUpdate="onUpdateStepper"/>
+              <stepper-custom cartId="{{item.id}}" cartQty="{{item._qty}}" onUpdate="onUpdateStepper" />
             </view>
           </view>
         </view>
@@ -82,8 +82,8 @@
   <view class="recipe-footer">
     <view class="footer-left">
       <text class="footer-title">Tổng cộng</text>
-      <text class="footer-price">53.001₫</text>
+      <text class="footer-price">{{totalPrice}}₫</text>
     </view>
-    <button class="add-to-cart-button">Thêm vào giỏ hàng</button>
+    <button class="add-to-cart-button" onTap="onAddToCart">Thêm vào giỏ hàng</button>
   </view>
 </view>
