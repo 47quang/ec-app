@@ -16,18 +16,20 @@
       {
         "name": "Home",
         "pagePath": "pages/home/index",
-        "icon": "public/assets/icons/home.svg",
-        "activeIcon": "public/assets/icons/home-active.svg"
+        "icon": "public/assets/icons/home.png",
+        "activeIcon": "public/assets/icons/home-active.png"
       },
       {
         "name": "Order",
         "pagePath": "pages/order/index",
-        "icon": "public/assets/icons/order.svg"
+        "icon": "public/assets/icons/order.png",
+        "activeIcon": "public/assets/icons/order-active.png"
       },
       {
         "name": "Profile",
         "pagePath": "pages/profile/index",
-        "icon": "public/assets/icons/user.svg"
+        "icon": "public/assets/icons/profile.png",
+        "activeIcon": "public/assets/icons/profile-active.png"
       }
     ]
   }

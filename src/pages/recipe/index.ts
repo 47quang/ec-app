@@ -133,20 +133,36 @@ Page<RecipeData, RecipeMethods>({
   },
 
   onAddToCart() {
-    (my as any).addToCart({
-      products: this.data.cart.map((c) => ({ productId: c.id, quantity: c._qty })),
+    // (my as any).addToCart({
+    //   products: this.data.cart.map((c) => ({ productId: c.id, quantity: c._qty })),
+    //   success: (res: any) => {
+    //     console.log('success', res);
+    //   },
+    //   fail: (res: any) => {
+    //     console.log('fail', res);
+    //   },
+    // });
+
+    (my as any).openScreen({
+      screenCode: 'TK_CART',
       success: (res: any) => {
-        console.log('success', res);
-        (my as any).getCart();
+        console.log({ res });
       },
       fail: (res: any) => {
-        console.log('fail', res);
+        console.log({ res });
       },
     });
   },
 
-  onCustomIconEvent(e: any) {
-    console.log(e);
-    (my as any).openScreen({ screenCode: 'TK_CART' });
-  },
+  // onCustomIconEvent(_e: any) {
+  //   (my as any).openScreen({
+  //     screenCode: 'TK_CART',
+  //     success: (res: any) => {
+  //       console.log({ res });
+  //     },
+  //     fail: (res: any) => {
+  //       console.log({ res });
+  //     },
+  //   });
+  // },
 });
