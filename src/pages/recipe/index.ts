@@ -133,15 +133,15 @@ Page<RecipeData, RecipeMethods>({
   },
 
   onAddToCart() {
-    // (my as any).addToCart({
-    //   products: this.data.cart.map((c) => ({ productId: c.id, quantity: c._qty })),
-    //   success: (res: any) => {
-    //     console.log('success', res);
-    //   },
-    //   fail: (res: any) => {
-    //     console.log('fail', res);
-    //   },
-    // });
+    (my as any).addToCart({
+      products: this.data.cart.map((c) => ({ productId: c.id, quantity: c._qty })),
+      success: (res: any) => {
+        console.log('success', res);
+      },
+      fail: (res: any) => {
+        console.log('fail', res);
+      },
+    });
 
     (my as any).openScreen({
       screenCode: 'TK_CART',
