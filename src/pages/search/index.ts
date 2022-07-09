@@ -11,6 +11,7 @@ export interface FilterParams {
   tagIds?: string;
   sort?: 'by_views' | 'by_created_at';
   page?: number;
+  ids?: string;
   perpage?: number;
 }
 interface SearchData {
