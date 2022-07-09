@@ -69,7 +69,7 @@
 }
 
 .recipe-view-icon {
-  width:20px;
+  width: 20px;
   height: 20px;
   display: block;
 }
@@ -90,4 +90,9 @@
 .bookmark-icon {
   width: 20px;
   height: 20px;
+}
+
+.carousel-item-image {
+  width: 100%;
+  border-radius: 8px;
 }

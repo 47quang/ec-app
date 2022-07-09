@@ -1,5 +1,17 @@
 <search />
 
+<carousel indicator-dots circular="{{true}}" spacing="10">
+  <carousel-item>
+    <image class="carousel-item-image" mode="widthFix" src="../../public/assets/icons/banner1-1.png" />
+  </carousel-item>
+  <carousel-item>
+    <image class="carousel-item-image" mode="widthFix" src="../../public/assets/icons/banner2.png" />
+  </carousel-item>
+  <carousel-item>
+    <image class="carousel-item-image" mode="widthFix" src="../../public/assets/icons/banner3.png" />
+  </carousel-item>
+</carousel>
+
 <text class="header">Danh mục</text>
 <view class="categories">
   <block tiki:for="{{categories}}" tiki:key="category-{{item.id}}">

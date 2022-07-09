@@ -1,6 +1,6 @@
 {
   "name": "easy-cook",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "tiki": {
     "appIdentifier": "vn.tiki.miniapp.easycook",
     "buildNumber": 1
