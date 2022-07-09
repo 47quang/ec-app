@@ -8,7 +8,8 @@
   ],
   "window": {
     "defaultTitle": "EasyCook",
-    "titleBarColor": "#F4C316"
+    "titleBarColor": "#F4C316",
+    "backgroundColor": "#ffffff"
   },
   "tabBar": {
     "items": [

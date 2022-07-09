@@ -26,13 +26,24 @@
       <text class="overview-item-text">Siêu dễ</text>
     </view>
   </view>
-  <tabs className="tab" tabs="{{tabs}}" tabsName="recipeTab"  activeTab="{{recipeTab}}" onChange="onTabChange" onTabClick="onTabClick">
+  <tabs className="tab" tabs="{{tabs}}" tabsName="recipeTab" activeTab="{{recipeTab}}" onChange="onTabChange"
+    onTabClick="onTabClick">
     <tab-content key="0" tabId="{{0}}" activeTab="{{recipeTab}}">
-      <view>Che bien</view>
+      <view class="recipe-content">
+        <text>
+          {{recipe.content}}
+        </text>
+      </view>
     </tab-content>
 
     <tab-content key="1" tabId="{{1}}" activeTab="{{recipeTab}}">
-      <view>Nguyen lieu</view>
+      <view class="recipe-content">
+      </view>
     </tab-content>
   </tabs>
+
+  <view>
+    <block tiki:for="{{recipe.products}}" tiki:key="{{item.id}}">
+    </block>
+  </view>
 </view>

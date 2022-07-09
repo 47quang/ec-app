@@ -1,7 +1,7 @@
 import CategoryService from '../../apis/category/category.service';
 import RecipeService from '../../apis/recipe/recipe.service';
-
-interface Category {
+import * as _ from 'lodash';
+export interface Category {
   id: string;
   name: string;
   thumbnail: string;
@@ -20,7 +20,7 @@ interface HomeData {
   recipes: Recipe[];
 }
 
-interface Recipe {
+export interface Recipe {
   id: string;
   title: string;
   thumbnail: string;
@@ -44,7 +44,7 @@ interface Product {
   updated_at: Date;
 }
 
-interface Tag {
+export interface Tag {
   id: string;
   name: string;
   type: string;
@@ -70,28 +70,28 @@ Page<HomeData, HomeMethod>({
       ...item,
       id: '' + Math.random() * 1000,
     }));
-    const fakeRecipes = [
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-      ...recipes,
-    ].map((item) => ({
-      ...item,
-      id: '' + Math.random() * 1000,
-    }));
-    fakeRecipes[2].title = 'aiden';
+    // const fakeRecipes = [
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    //   ...recipes,
+    // ].map((item) => ({
+    //   ...item,
+    //   id: '' + Math.random() * 1000,
+    // }));
+    // fakeRecipes[2].title = 'aiden';
     this.setData({ categories: fakeCategories, recipes });
   },
 
@@ -101,8 +101,11 @@ Page<HomeData, HomeMethod>({
   },
 
   async getRecipes(): Promise<Recipe[]> {
-    const recipes = (await RecipeService.search('mon')) as Recipe[];
-    return recipes;
+    const response: any = await RecipeService.search({ sort: 'by_views' });
+    if (!_.isEmpty(response)) {
+      return response.recipes;
+    }
+    return [];
   },
 
   goToRecipe(e: any) {

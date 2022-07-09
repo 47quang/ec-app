@@ -1,4 +1,34 @@
-<view class="search-wrapper" onTap="goToSearch">
-  <icon type="search" />
-  <text>Component name / API</text>
+<view class="search-box">
+  <textfield focus placeholder="Tìm kiếm" onInput="onInput" iconLeft="search" />
+</view>
+
+<view class="dropdown-container">
+  <dropdown showCheck="{{true}}" className="category-dropdown" bottomSheetHeight="600" bottomSheetTitle="Danh mục"
+    labelKey="label" idKey="key" items="{{categories}}" value="{{null}}" onSelect="onSelect2" placeholder="Danh mục">
+  </dropdown>
+
+  <dropdown showSearch="{{true}}" className="tag-dropdown" bottomSheetHeight="800" bottomSheetTitle="Hashtag"
+    labelKey="name" idKey="id" items="{{tags}}" value="{{selectedTag}}" onSelect="onTapHashtag" placeholder="Hashtag"
+    searchPlaceholder="Tìm kiếm hashtag" onSearch="onSearchHashtag">
+  </dropdown>
+</view>
+
+<view class="result-wrapper">
+  <text class="result-header">Kết quả tìm kiếm</text>
+  <view class="result-content">
+    <block tiki:for="{{recipes}}" tiki:key="{{item.id}}">
+      <view>
+        <view>
+          <image src="{{item.thumbnail}}"></image>
+        </view>
+        <view>
+          <text>{{`${item.category.name} </ br> ${item.category.name}`}}</text>
+
+        </view>
+        <view>
+            
+        </view>
+      </view>
+    </block>
+  </view>
 </view>

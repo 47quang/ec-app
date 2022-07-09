@@ -64,3 +64,8 @@
 .tab {
   margin-top: 8px;
 }
+
+.recipe-content {
+  font-size: 16px;
+  margin: 8px 16px;
+}

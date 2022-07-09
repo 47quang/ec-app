@@ -1,15 +1,15 @@
-import { Greeter } from "./entity/greeter";
-
 App({
   // @ts-ignore ==> test ts ignore flag
   onLaunch(options) {
-    console.log('App onLaunch');
-    const greeter = new Greeter("my owner");
-    greeter.greet();
-    console.log({options});
-    
+    // my.getAuthCode({
+    //   scopes: ['offline', 'auth_base', 'auth_user', 'auth_zhima'] as any,
+    //   success: (res) => {
+    //     console.log(res);
+    //     // auth_code: "EYBmo09rHjtlKNN_ilDsNBp2uRJH1mFeoDDcmZ3af9k.oNIkDNIKsVcKv3HPgcDIhsNKvPYfh8dWgAf5jCxHG80"
+    //   },
+    //   fail: () => {},
+    // });
   },
   // @ts-ignore ==> test ts ignore flag
-  onShow(options) {
-  },
+  onShow(options) {},
 });

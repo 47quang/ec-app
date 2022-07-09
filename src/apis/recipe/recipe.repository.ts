@@ -2,7 +2,7 @@ import { aidenInstance } from '../configs/index';
 
 class RecipeRepository {
   search(searchTerm: string) {
-    return aidenInstance.get(`/search?q=${searchTerm}`);
+    return aidenInstance.get(`/search?${searchTerm}`);
   }
 
   getRecipeById(id: string) {

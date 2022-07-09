@@ -1,15 +1,22 @@
+import { FilterParams } from 'pages/search';
 import recipeRepository from './recipe.repository';
+import * as queryString from 'query-string';
 
 class RecipeService {
-  search(q: string) {
+  search(filterParams: FilterParams) {
+    console.log({ filterParams });
+    const filterString: string = queryString.stringify(filterParams);
     return new Promise((resolve, reject) => {
       recipeRepository
-        .search(q)
+        .search(filterString)
         .then((res) => {
           const { data } = res;
-          if (data) resolve(data.recipes);
+          if (data) resolve(data);
         })
-        .catch((error) => reject(error));
+        .catch((error) => {
+          console.log(error);
+          reject({});
+        });
     });
   }
 
