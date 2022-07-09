@@ -64,7 +64,7 @@
             </view>
             <view class="product-price-section">
               <text class="product-price">
-                {{item.price}}₫
+                {{item.price_text}}₫
               </text>
               <block tiki:if="{{item.discount_rate !== 0}}">
                 <text class="product-price-original">

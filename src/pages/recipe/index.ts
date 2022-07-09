@@ -1,6 +1,7 @@
 import RecipeService from '../../apis/recipe/recipe.service';
 import * as _ from 'lodash';
 import { getRecipes, saveRecipes } from '../../utils/index';
+import format from 'format-number';
 
 interface RecipeData {
   id: string;
@@ -82,7 +83,12 @@ Page<RecipeData, RecipeMethods>({
     );
     const c = products.map((p) => {
       const stockItem = _.get(p, 'stock_item.qty', 0);
-      return { ...p, _qty: stockItem > 0 ? 1 : 0 };
+      return {
+        ...p,
+        _qty: stockItem > 0 ? 1 : 0,
+        price_text: format({ decimalsSeparator: ',' })(p.price),
+        original_price_text: format({ decimalsSeparator: ',' })(p.original_price),
+      };
     });
     this.setData({
       products,
@@ -92,10 +98,12 @@ Page<RecipeData, RecipeMethods>({
   },
 
   calculateTotalPrice(c: any) {
-    return c.reduce((acc: any, val: any) => {
+    const total = c.reduce((acc: any, val: any) => {
       acc += val._qty * val.price;
       return acc;
     }, 0);
+
+    return format({ decimalsSeparator: ',' })(total);
   },
 
   onChangeStepper(e: any, m: any, c: any) {
