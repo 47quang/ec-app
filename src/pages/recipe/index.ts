@@ -27,14 +27,11 @@ Page<RecipeData, RecipeMethods>({
   },
   // @ts-ignore ==> test ts ignore flag
   async onLoad(query: string) {
-    console.log(query);
     const [, id] = query.split('=');
 
     const recipe: any = await RecipeService.getRecipeById(id);
 
     recipe.tags = recipe.tags.concat(recipe.tags);
-
-    console.log(recipe);
 
     recipe.products = [
       {

@@ -4,7 +4,6 @@ import * as queryString from 'query-string';
 
 class RecipeService {
   search(filterParams: FilterParams) {
-    console.log({ filterParams });
     const filterString: string = queryString.stringify(filterParams);
     return new Promise((resolve, reject) => {
       recipeRepository

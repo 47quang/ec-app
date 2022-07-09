@@ -2,6 +2,7 @@ import RecipeService from '../../apis/recipe/recipe.service';
 import CategoryService from '../../apis/category/category.service';
 import * as _ from 'lodash';
 import { Category, Recipe, Tag } from 'pages/home';
+import * as queryString from 'query-string';
 
 export interface FilterParams {
   q?: string;
@@ -48,8 +49,17 @@ Page<SearchData, SearchMethods>({
   async onLoad(query: string) {
     let categories = await this.getCategories();
     this.setData({ categories });
+    const params = queryString.parse(query);
 
-    const response = await this.handleFilterRecipe(this.data.filterParams);
+    const cate = _.find(categories, { id: _.get(params, 'categoryId', '') });
+
+    if (cate) {
+      this.setData({
+        selectedCategory: cate as Category,
+      });
+    }
+
+    const response = await this.handleFilterRecipe(params);
     if (!_.isEmpty(response)) {
       this.setData({
         recipes: response.recipes,
@@ -137,8 +147,6 @@ Page<SearchData, SearchMethods>({
         this.setData({
           recipes: response.recipes,
         });
-
-        console.log(response.recipes);
         return;
       }
       this.setData({
@@ -151,8 +159,6 @@ Page<SearchData, SearchMethods>({
         this.setData({
           recipes: response.recipes,
         });
-
-        console.log(response.recipes);
         return;
       }
       this.setData({
@@ -177,8 +183,6 @@ Page<SearchData, SearchMethods>({
         this.setData({
           recipes: response.recipes,
         });
-
-        console.log(response.recipes);
         return;
       }
       this.setData({
@@ -194,8 +198,6 @@ Page<SearchData, SearchMethods>({
         this.setData({
           recipes: response.recipes,
         });
-
-        console.log(response.recipes);
         return;
       }
       this.setData({

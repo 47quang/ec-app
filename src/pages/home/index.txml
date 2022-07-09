@@ -3,7 +3,7 @@
 <text class="header">Danh mục</text>
 <view class="categories">
   <block tiki:for="{{categories}}" tiki:key="category-{{item.id}}">
-    <view class="category-item">
+    <view class="category-item" onTap="goToSearch" data-categoryId="{{item.id}}">
       <image src="{{item.thumbnail}}" />
       <text>{{item.name}}</text>
     </view>
