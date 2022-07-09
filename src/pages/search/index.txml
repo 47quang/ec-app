@@ -17,11 +17,11 @@
   <text class="result-header">Kết quả tìm kiếm</text>
   <view class="result-content">
     <block tiki:for="{{recipes}}" tiki:key="{{item.id}}">
-      <view class="result-content-item" onTap="goToRecipe" data-id="{{item.id}}">
-        <view>
+      <view class="result-content-item">
+        <view onTap="goToRecipe" data-id="{{item.id}}">
           <image src="{{item.thumbnail}}"></image>
         </view>
-        <view class="result-content-text">
+        <view class="result-content-text" onTap="goToRecipe" data-id="{{item.id}}">
           <text class="result-content-text-category">{{item.category.name}}</text>
           <text class="result-content-text-title">{{item.title}}</text>
           <view>
@@ -31,7 +31,14 @@
           </view>
         </view>
         <view class="result-content-bookmark">
-          <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
+          <view onTap="onSave" data-id="{{item.id}}" class="bookmark-icon">
+            <block tiki:if="{{!savedRecipes.includes(item.id)}}">
+              <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
+            </block>
+            <block tiki:else>
+              <icon type="bookmark_add_glyph" size="20" color="#BF1D28" />
+            </block>
+          </view>
         </view>
       </view>
     </block>

@@ -1,6 +1,7 @@
 import CategoryService from '../../apis/category/category.service';
 import RecipeService from '../../apis/recipe/recipe.service';
 import * as _ from 'lodash';
+import { getRecipes, saveRecipes } from '../../utils/index';
 export interface Category {
   id: string;
   name: string;
@@ -14,11 +15,13 @@ interface HomeMethod {
   getRecipes(): Promise<Recipe[]>;
   goToRecipe(recipeId: string): any;
   goToSearch(params: any): any;
+  onSave(params: any): any;
 }
 
 interface HomeData {
   categories: Category[];
   recipes: Recipe[];
+  savedRecipes: string[];
 }
 
 export interface Recipe {
@@ -63,36 +66,14 @@ interface Author {
 }
 
 Page<HomeData, HomeMethod>({
-  data: { categories: [], recipes: [] },
+  data: { categories: [], recipes: [], savedRecipes: [] },
+  async onShow() {
+    const savedRecipes = await getRecipes();
+    this.setData({ savedRecipes: savedRecipes || [] });
+  },
   async onLoad(_query = {}) {
     let categories = await this.getCategories();
     let recipes = await this.getRecipes();
-    // const fakeCategories = [...categories, ...categories, ...categories].map((item) => ({
-    //   ...item,
-    //   id: '' + Math.random() * 1000,
-    // }));
-    // const fakeRecipes = [
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    //   ...recipes,
-    // ].map((item) => ({
-    //   ...item,
-    //   id: '' + Math.random() * 1000,
-    // }));
-    // fakeRecipes[2].title = 'aiden';
     this.setData({ categories, recipes });
   },
 
@@ -116,5 +97,20 @@ Page<HomeData, HomeMethod>({
 
   goToSearch(e: any) {
     my.navigateTo({ url: `pages/search/index?categoryId=${e.target.dataset.categoryId}` });
+  },
+
+  onSave(_e: any) {
+    console.log({ _e });
+    const id = _e.target.dataset.id;
+    let newSavedRecipes = [];
+    if (_.some(this.data.savedRecipes, (recipeId) => id === recipeId)) {
+      newSavedRecipes = this.data.savedRecipes.filter((recipeId) => recipeId !== id);
+    } else {
+      newSavedRecipes = _.uniq([...this.data.savedRecipes, id]);
+    }
+    this.setData({
+      savedRecipes: newSavedRecipes,
+    });
+    saveRecipes(newSavedRecipes);
   },
 });

@@ -3,6 +3,7 @@ import CategoryService from '../../apis/category/category.service';
 import * as _ from 'lodash';
 import { Category, Recipe, Tag } from 'pages/home';
 import * as queryString from 'query-string';
+import { getRecipes, saveRecipes } from '../../utils/index';
 
 export interface FilterParams {
   q?: string;
@@ -20,6 +21,7 @@ interface SearchData {
   tags: Tag[];
   selectedTag: Tag | null;
   selectedCategory: Category | null;
+  savedRecipes: string[];
 }
 interface SearchMethods {
   parseParams(): any;
@@ -31,6 +33,7 @@ interface SearchMethods {
   onTapHashtag(params: any): any;
   onTapRecipe(params: any): any;
   goToRecipe(params: any): any;
+  onSave(params: any): any;
   onSelectCategory(params: any): any;
   getCategories(): Promise<Category[]>;
 }
@@ -44,10 +47,13 @@ Page<SearchData, SearchMethods>({
     filterParams: {},
     selectedTag: null,
     selectedCategory: null,
+    savedRecipes: [],
   },
   // @ts-ignore ==> test ts ignore flag
   async onLoad(query: string) {
     let categories = await this.getCategories();
+    const savedRecipes = await getRecipes();
+    this.setData({ savedRecipes: savedRecipes || [] });
     this.setData({ categories });
     const params = queryString.parse(query);
 
@@ -204,5 +210,18 @@ Page<SearchData, SearchMethods>({
         recipes: [],
       });
     }
+  },
+  onSave(_e: any) {
+    const id = _e.target.dataset.id;
+    let newSavedRecipes = [];
+    if (_.some(this.data.savedRecipes, (recipeId) => id === recipeId)) {
+      newSavedRecipes = this.data.savedRecipes.filter((recipeId) => recipeId !== id);
+    } else {
+      newSavedRecipes = _.uniq([...this.data.savedRecipes, id]);
+    }
+    this.setData({
+      savedRecipes: newSavedRecipes,
+    });
+    saveRecipes(newSavedRecipes);
   },
 });

@@ -1,5 +1,6 @@
 import RecipeService from '../../apis/recipe/recipe.service';
 import * as _ from 'lodash';
+import { getRecipes, saveRecipes } from '../../utils/index';
 
 interface RecipeData {
   id: string;
@@ -9,6 +10,7 @@ interface RecipeData {
   products: any[];
   cart: any[];
   totalPrice: number;
+  savedRecipes: string[];
 }
 interface RecipeMethods {
   parseParams(): any;
@@ -30,10 +32,14 @@ Page<RecipeData, RecipeMethods>({
     cart: [],
     totalPrice: 0,
     recipeTab: 0,
+    savedRecipes: [],
   },
   // @ts-ignore ==> test ts ignore flag
   async onLoad(query: string) {
     const [, id] = query.split('=');
+
+    const savedRecipes = await getRecipes();
+    this.setData({ savedRecipes: savedRecipes || [] });
 
     (my as any).addIconsToNavigationBar({
       icons: [
@@ -133,25 +139,47 @@ Page<RecipeData, RecipeMethods>({
   },
 
   onAddToCart() {
-    (my as any).addToCart({
-      products: this.data.cart.map((c) => ({ productId: c.id, quantity: c._qty })),
-      success: (res: any) => {
-        console.log('success', res);
-      },
-      fail: (res: any) => {
-        console.log('fail', res);
+    my.confirm({
+      title: 'Xác nhận',
+      content: 'Đi tới giỏ hàng của Tiki.',
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Huỷ',
+      success: (_res) => {
+        (my as any).addToCart({
+          products: this.data.cart.map((c) => ({ productId: c.id, quantity: c._qty })),
+          success: (res: any) => {
+            console.log('success', res);
+            (my as any).openScreen({
+              screenCode: 'TK_CART',
+              success: (res: any) => {
+                console.log({ res });
+              },
+              fail: (res: any) => {
+                console.log({ res });
+              },
+            });
+          },
+          fail: (res: any) => {
+            console.log('fail', res);
+          },
+        });
       },
     });
+  },
 
-    (my as any).openScreen({
-      screenCode: 'TK_CART',
-      success: (res: any) => {
-        console.log({ res });
-      },
-      fail: (res: any) => {
-        console.log({ res });
-      },
+  onSave(_e: any) {
+    console.log({ _e });
+    const id = _e.target.dataset.id;
+    let newSavedRecipes = [];
+    if (_.some(this.data.savedRecipes, (recipeId) => id === recipeId)) {
+      newSavedRecipes = this.data.savedRecipes.filter((recipeId) => recipeId !== id);
+    } else {
+      newSavedRecipes = _.uniq([...this.data.savedRecipes, id]);
+    }
+    this.setData({
+      savedRecipes: newSavedRecipes,
     });
+    saveRecipes(newSavedRecipes);
   },
 
   // onCustomIconEvent(_e: any) {

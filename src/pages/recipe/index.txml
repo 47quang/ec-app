@@ -2,7 +2,14 @@
   <view class="recipe-thumbnail" style="background-image: url({{recipe.thumbnail}});"></view>
   <view class="header">
     <text>{{recipe.title}}</text>
-    <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
+    <view onTap="onSave" data-id="{{recipe.id}}">
+      <block tiki:if="{{!savedRecipes.includes(recipe.id)}}">
+        <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
+      </block>
+      <block tiki:else>
+        <icon type="bookmark_add_glyph" size="20" color="#BF1D28" />
+      </block>
+    </view>
   </view>
 
   <view class="tag-container">

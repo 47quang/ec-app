@@ -86,3 +86,8 @@
   margin-left: 4px;
   color: #808089;
 }
+
+.bookmark-icon {
+  width: 20px;
+  height: 20px;
+}
