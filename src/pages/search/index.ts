@@ -5,7 +5,7 @@ import { Category, Recipe, Tag } from 'pages/home';
 export interface FilterParams {
   q?: string;
   categoryId?: string;
-  tagId?: string[];
+  tagIds?: string;
   sort?: 'by_views' | 'by_created_at';
   page?: number;
   perpage?: number;
@@ -26,6 +26,8 @@ interface SearchMethods {
   handleFilterRecipe(filterParams: FilterParams): any;
   onSearchHashtag(params: any): any;
   onTapHashtag(params: any): any;
+  onTapRecipe(params: any): any;
+  goToRecipe(params: any): any;
 }
 
 Page<SearchData, SearchMethods>({
@@ -105,7 +107,7 @@ Page<SearchData, SearchMethods>({
       selectedTag: e,
     });
 
-    const response = await this.handleFilterRecipe({ ...this.data.filterParams, q: `#${e.name}` });
+    const response = await this.handleFilterRecipe({ ...this.data.filterParams, tagIds: e.id });
     if (!_.isEmpty(response)) {
       this.setData({
         recipes: response.recipes,
@@ -117,5 +119,14 @@ Page<SearchData, SearchMethods>({
     this.setData({
       recipes: [],
     });
+  },
+
+  async onTapRecipe(e) {
+    console.log(e);
+  },
+
+  goToRecipe(e: any) {
+    const recipeId = e.target.dataset.id;
+    my.navigateTo({ url: `pages/recipe/index?id=${recipeId}` });
   },
 });

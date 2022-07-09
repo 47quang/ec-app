@@ -66,10 +66,10 @@ Page<HomeData, HomeMethod>({
   async onLoad(_query = {}) {
     let categories = await this.getCategories();
     let recipes = await this.getRecipes();
-    const fakeCategories = [...categories, ...categories, ...categories].map((item) => ({
-      ...item,
-      id: '' + Math.random() * 1000,
-    }));
+    // const fakeCategories = [...categories, ...categories, ...categories].map((item) => ({
+    //   ...item,
+    //   id: '' + Math.random() * 1000,
+    // }));
     // const fakeRecipes = [
     //   ...recipes,
     //   ...recipes,
@@ -92,11 +92,13 @@ Page<HomeData, HomeMethod>({
     //   id: '' + Math.random() * 1000,
     // }));
     // fakeRecipes[2].title = 'aiden';
-    this.setData({ categories: fakeCategories, recipes });
+    console.log({ categories });
+    this.setData({ categories, recipes });
   },
 
   async getCategories(): Promise<Category[]> {
     const categories = (await CategoryService.getAllCategories()) as Category[];
+    console.log({ categories });
     return categories;
   },
 

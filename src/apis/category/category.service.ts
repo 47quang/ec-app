@@ -7,9 +7,13 @@ class CategoryService {
         .getAllCategories()
         .then((res) => {
           const { data } = res;
+          console.log({ data });
           if (data) resolve(data.data);
         })
-        .catch((error) => reject(error));
+        .catch((error) => {
+          console.log(error);
+          reject([]);
+        });
     });
   }
 }

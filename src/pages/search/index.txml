@@ -17,16 +17,21 @@
   <text class="result-header">Kết quả tìm kiếm</text>
   <view class="result-content">
     <block tiki:for="{{recipes}}" tiki:key="{{item.id}}">
-      <view>
+      <view class="result-content-item" onTap="goToRecipe" data-id="{{item.id}}">
         <view>
           <image src="{{item.thumbnail}}"></image>
         </view>
-        <view>
-          <text>{{`${item.category.name} </ br> ${item.category.name}`}}</text>
-
+        <view class="result-content-text">
+          <text class="result-content-text-category">{{item.category.name}}</text>
+          <text class="result-content-text-title">{{item.title}}</text>
+          <view>
+            <text class="result-content-text-views">{{item.author.name}}</text>
+            <text class="bullet">•</text>
+            <text class="result-content-text-views">{{item.views}} lượt xem</text>
+          </view>
         </view>
-        <view>
-            
+        <view class="result-content-bookmark">
+          <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
         </view>
       </view>
     </block>
