@@ -23,6 +23,7 @@ interface SearchData {
   selectedTag: Tag | null;
   selectedCategory: Category | null;
   savedRecipes: string[];
+  loading: boolean;
 }
 interface SearchMethods {
   parseParams(): any;
@@ -49,33 +50,25 @@ Page<SearchData, SearchMethods>({
     selectedTag: null,
     selectedCategory: null,
     savedRecipes: [],
+    loading: true,
   },
   // @ts-ignore ==> test ts ignore flag
   async onLoad(query: string) {
     let categories = await this.getCategories();
     const savedRecipes = await getRecipes();
-    this.setData({ savedRecipes: savedRecipes || [] });
-    this.setData({ categories });
+    this.setData({ savedRecipes: savedRecipes || [], categories });
     const params = queryString.parse(query);
-
     const cate = _.find(categories, { id: _.get(params, 'categoryId', '') });
-
     if (cate) {
-      this.setData({
-        selectedCategory: cate as Category,
-      });
+      this.setData({ selectedCategory: cate as Category });
     }
 
     const response = await this.handleFilterRecipe(params);
     if (!_.isEmpty(response)) {
-      this.setData({
-        recipes: response.recipes,
-      });
+      this.setData({ recipes: response.recipes, loading: false });
       return;
     }
-    this.setData({
-      recipes: [],
-    });
+    this.setData({ recipes: [], loading: false });
   },
 
   onTabClick({ index, tabsName }) {

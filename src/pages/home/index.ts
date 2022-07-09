@@ -1,7 +1,7 @@
 import CategoryService from '../../apis/category/category.service';
 import RecipeService from '../../apis/recipe/recipe.service';
 import * as _ from 'lodash';
-import { getRecipes, saveRecipes } from '../../utils/index';
+import { getRecipes, saveRecipes, formatNumber } from '../../utils/index';
 export interface Category {
   id: string;
   name: string;
@@ -22,6 +22,7 @@ interface HomeData {
   categories: Category[];
   recipes: Recipe[];
   savedRecipes: string[];
+  loading: boolean;
 }
 
 export interface Recipe {
@@ -66,15 +67,20 @@ interface Author {
 }
 
 Page<HomeData, HomeMethod>({
-  data: { categories: [], recipes: [], savedRecipes: [] },
+  data: { categories: [], recipes: [], savedRecipes: [], loading: true },
   async onShow() {
     const savedRecipes = await getRecipes();
     this.setData({ savedRecipes: savedRecipes || [] });
   },
   async onLoad(_query = {}) {
-    let categories = await this.getCategories();
-    let recipes = await this.getRecipes();
-    this.setData({ categories, recipes });
+    // let categories = await this.getCategories();
+    // let recipes = await this.getRecipes();
+    const [categories, recipes] = await Promise.all([this.getCategories(), this.getRecipes()]);
+    this.setData({
+      categories: categories as unknown as Category[],
+      recipes: recipes as unknown as Recipe[],
+      loading: false,
+    });
   },
 
   async getCategories(): Promise<Category[]> {
@@ -85,7 +91,10 @@ Page<HomeData, HomeMethod>({
   async getRecipes(): Promise<Recipe[]> {
     const response: any = await RecipeService.search({ sort: 'by_views' });
     if (!_.isEmpty(response)) {
-      return response.recipes;
+      return response.recipes.map((recipe: any) => ({
+        ...recipe,
+        views: formatNumber(recipe.views),
+      }));
     }
     return [];
   },

@@ -13,43 +13,64 @@
 </carousel>
 
 <text class="header">Danh mục</text>
-<view class="categories">
-  <block tiki:for="{{categories}}" tiki:key="category-{{item.id}}">
-    <view class="category-item" onTap="goToSearch" data-categoryId="{{item.id}}">
-      <image src="{{item.thumbnail}}" />
-      <text>{{item.name}}</text>
+<block tiki:if="{{loading}}">
+  <view class="category-skeleton">
+    <view class="category-skeleton-wrapper">
+      <text class="category-skeleton-top"></text>
+      <text class="category-skeleton-top"></text>
     </view>
-  </block>
-</view>
+  </view>
+</block>
+<block tiki:else>
+  <view class="categories">
+    <block tiki:for="{{categories}}" tiki:key="category-{{item.id}}">
+      <view class="category-item" onTap="goToSearch" data-categoryId="{{item.id}}">
+        <image lazy-load="{{true}}" src="{{item.thumbnail}}" />
+        <text>{{item.name}}</text>
+      </view>
+    </block>
+  </view>
+</block>
 
 <text class="header">Gợi ý dành cho bạn</text>
-<view class="recipes">
-  <block tiki:for="{{recipes}}" tiki:key="recipe-{{item.id}}">
-    <view class="recipe-item">
-      <view class="recipe-item-header">
-        <text>{{item.category.name}}</text>
-        <view onTap="onSave" data-id="{{item.id}}" class="bookmark-icon">
-          <block tiki:if="{{!savedRecipes.includes(item.id)}}">
-            <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
-          </block>
-          <block tiki:else>
-            <icon type="bookmark_add_glyph" size="20" color="#BF1D28" />
-          </block>
-        </view>
-      </view>
-      <!-- onTap="goToRecipe" data-id="{{item.id}}" -->
-
-      <view onTap="goToRecipe" data-id="{{item.id}}">
-        <view>
-          <image class="recipe-thumbnail" src="{{item.thumbnail}}" />
-        </view>
-
-        <text class="recipe-name">{{item.title}}</text>
-        <view class="recipe-bottom">
-          <image class="recipe-view-icon" src="../../public/assets/icons/eye.svg" />
-          <text>{{item.views}} lượt xem</text>
-        </view>
-      </view>
+<block tiki:if="{{loading}}">
+  <view class="recipe-skeleton">
+    <view class="recipe-skeleton-wrapper">
+      <view class="recipe-skeleton-top"></view>
+      <view class="recipe-skeleton-top"></view>
+      <view class="recipe-skeleton-bot"></view>
+      <view class="recipe-skeleton-bot"></view>
     </view>
-  </block>
-</view>
+  </view>
+</block>
+<block tiki:else>
+  <view class="recipes">
+    <block tiki:for="{{recipes}}" tiki:key="recipe-{{item.id}}">
+      <view class="recipe-item">
+        <view class="recipe-item-header">
+          <text>{{item.category.name}}</text>
+          <view onTap="onSave" data-id="{{item.id}}" class="bookmark-icon">
+            <block tiki:if="{{!savedRecipes.includes(item.id)}}">
+              <icon type="bookmark_add_glyph" size="20" color="#aeaeb4" />
+            </block>
+            <block tiki:else>
+              <icon type="bookmark_add_glyph" size="20" color="#BF1D28" />
+            </block>
+          </view>
+        </view>
+
+        <view onTap="goToRecipe" data-id="{{item.id}}">
+          <view>
+            <image class="recipe-thumbnail" src="{{item.thumbnail}}" />
+          </view>
+
+          <text class="recipe-name">{{item.title}}</text>
+          <view class="recipe-bottom">
+            <view class="recipe-author"><text>{{item.author.name}}</text></view>
+            <text>{{item.views}} lượt xem</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</block>

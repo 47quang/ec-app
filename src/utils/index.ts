@@ -1,4 +1,4 @@
-import { reject } from 'lodash';
+import * as _ from 'lodash';
 
 export const saveRecipes = (value: any) => {
   my.setStorage({
@@ -15,8 +15,13 @@ export const getRecipes = (): Promise<string[]> => {
         resolve(res.data as string[]);
       },
       fail() {
-        reject([]);
+        _reject([]);
       },
     });
   });
+};
+
+export const formatNumber = (a: number) => {
+  if (a < 1000) return a;
+  return `${(_.round(a / 1000, 1))}k`;
 };
