@@ -68,4 +68,110 @@
 .recipe-content {
   font-size: 16px;
   margin: 8px 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ebebf0;
+}
+.product-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 16px;
+}
+
+.product-name-container {
+  margin-left: 12px;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: row;
+  padding: 16px 0;
+  border-bottom: 1px solid #ebebf0;
+}
+
+.product-item .product-name {
+  font-size: 14px;
+  color: #27272a;
+}
+
+.product-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #27272a;
+  margin-left: 16px;
+}
+.product-thumbnail {
+  width: 88px;
+  height: 88px;
+}
+
+.product-rating {
+  width: 14px;
+  height: 14px;
+}
+
+.bullet {
+  margin: 0 4px;
+  font-size: 12px;
+  color: #808089;
+}
+
+.product-price-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.product-price {
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 12px;
+}
+
+.product-price-original {
+  margin-left: 12px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #808089;
+  text-decoration: line-through;
+}
+
+.product-discount-rate {
+  font-size: 12px;
+  margin-left: 12px;
+  background-color: #ff424f;
+  color: white;
+  border-radius: 8px;
+  padding: 1px 4px;
+}
+
+.stepper-container {
+  margin-left: 12px;
+  margin-top: 4px;
+}
+
+.recipe-footer {
+  margin: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-title {
+  font-size: 12px;
+  color: #808089;
+}
+
+.footer-price {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.add-to-cart-button {
+  border-radius: 4px;
 }

@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "tabs": "@tiki.vn/tini-ui/es/tabs/index",
-    "tab-content": "@tiki.vn/tini-ui/es/tabs/tab-content/index"
+    "tab-content": "@tiki.vn/tini-ui/es/tabs/tab-content/index",
+    "stepper": "@tiki.vn/tini-ui/es/stepper/index",
+    "stepper-custom": "../../components/stepper-custom/index"
   }
 }

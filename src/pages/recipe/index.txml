@@ -43,7 +43,47 @@
   </tabs>
 
   <view>
-    <block tiki:for="{{recipe.products}}" tiki:key="{{item.id}}">
-    </block>
+    <text class="product-section-title">Sản phẩm</text>
+    <view class="product-container">
+      <block tiki:for="{{cart}}" tiki:key="{{item.id}}">
+        <view class="product-item">
+          <image class="product-thumbnail" src="{{item.thumbnail_url}}"></image>
+          <view>
+            <view class="product-name-container">
+              <text class="product-name">{{item.name}}</text>
+              <text class="bullet">•</text>
+              <image class="product-rating" src="../../public/assets/icons/star.svg"></image>
+              <text>{{item.rating_average}}</text>
+            </view>
+            <view class="product-price-section">
+              <text class="product-price">
+                {{item.price}}₫
+              </text>
+              <block tiki:if="{{item.discount_rate !== 0}}">
+                <text class="product-price-original">
+                  {{item.original_price}}₫
+                </text>
+                <text class="product-discount-rate">
+                  -{{item.discount_rate}}%
+                </text>
+              </block>
+            </view>
+            <view class="stepper-container">
+              <!-- <stepper className="stepper-custom" onTap="onTapStepper" data-="{{item.id}}" onChange="{{(e, m) => onChangeStepper(e, m)}}" step="{{1}}" showNumber
+                value="{{item._qty}}" min="{{1}}" /> -->
+                <stepper-custom cartId="{{item.id}}" cartQty="{{item._qty}}" onUpdate="onUpdateStepper"/>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="recipe-footer">
+    <view class="footer-left">
+      <text class="footer-title">Tổng cộng</text>
+      <text class="footer-price">53.001₫</text>
+    </view>
+    <button class="add-to-cart-button">Thêm vào giỏ hàng</button>
   </view>
 </view>

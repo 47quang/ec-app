@@ -1,0 +1,2 @@
+<stepper className="stepper-custom" onChange="onUpdateStepper" step="{{1}}" showNumber value="{{cartQty}}"
+  min="{{1}}" />
