@@ -1,4 +1,5 @@
 import RecipeService from '../../apis/recipe/recipe.service';
+import CategoryService from '../../apis/category/category.service';
 import * as _ from 'lodash';
 import { Category, Recipe, Tag } from 'pages/home';
 
@@ -12,11 +13,12 @@ export interface FilterParams {
 }
 interface SearchData {
   debounceId: number;
+  categories: Category[];
   filterParams: FilterParams;
   recipes: Recipe[];
   tags: Tag[];
-  selectedTag: Tag;
-  selectedCategory: Category;
+  selectedTag: Tag | null;
+  selectedCategory: Category | null;
 }
 interface SearchMethods {
   parseParams(): any;
@@ -28,19 +30,36 @@ interface SearchMethods {
   onTapHashtag(params: any): any;
   onTapRecipe(params: any): any;
   goToRecipe(params: any): any;
+  onSelectCategory(params: any): any;
+  getCategories(): Promise<Category[]>;
 }
 
 Page<SearchData, SearchMethods>({
   data: {
     debounceId: 0,
+    categories: [],
     recipes: [],
     tags: [],
     filterParams: {},
-    selectedTag: {} as Tag,
-    selectedCategory: {} as Category,
+    selectedTag: null,
+    selectedCategory: null,
   },
   // @ts-ignore ==> test ts ignore flag
-  async onLoad(query: string) {},
+  async onLoad(query: string) {
+    let categories = await this.getCategories();
+    this.setData({ categories });
+
+    const response = await this.handleFilterRecipe(this.data.filterParams);
+    if (!_.isEmpty(response)) {
+      this.setData({
+        recipes: response.recipes,
+      });
+      return;
+    }
+    this.setData({
+      recipes: [],
+    });
+  },
 
   onTabClick({ index, tabsName }) {
     this.setData({
@@ -71,12 +90,17 @@ Page<SearchData, SearchMethods>({
       this.setData({
         recipes: [],
       });
-    }, 1000);
+    }, 500);
     this.setData({ debounceId: id });
   },
 
   handleFilterRecipe(filterParams: FilterParams): Promise<any> {
     return RecipeService.search(filterParams);
+  },
+
+  async getCategories(): Promise<Category[]> {
+    const categories = (await CategoryService.getAllCategories()) as Category[];
+    return categories;
   },
 
   async onSearchHashtag(searchTerm: string) {
@@ -103,30 +127,80 @@ Page<SearchData, SearchMethods>({
   },
 
   async onTapHashtag(e) {
-    this.setData({
-      selectedTag: e,
-    });
-
-    const response = await this.handleFilterRecipe({ ...this.data.filterParams, tagIds: e.id });
-    if (!_.isEmpty(response)) {
-      this.setData({
-        recipes: response.recipes,
+    if (e.id === this.data.selectedTag?.id) {
+      this.setData({ selectedTag: null });
+      const response = await this.handleFilterRecipe({
+        ...this.data.filterParams,
+        tagIds: undefined,
       });
+      if (!_.isEmpty(response)) {
+        this.setData({
+          recipes: response.recipes,
+        });
 
-      console.log(response.recipes);
-      return;
+        console.log(response.recipes);
+        return;
+      }
+      this.setData({
+        recipes: [],
+      });
+    } else {
+      this.setData({ selectedTag: e });
+      const response = await this.handleFilterRecipe({ ...this.data.filterParams, tagIds: e.id });
+      if (!_.isEmpty(response)) {
+        this.setData({
+          recipes: response.recipes,
+        });
+
+        console.log(response.recipes);
+        return;
+      }
+      this.setData({
+        recipes: [],
+      });
     }
-    this.setData({
-      recipes: [],
-    });
-  },
-
-  async onTapRecipe(e) {
-    console.log(e);
   },
 
   goToRecipe(e: any) {
     const recipeId = e.target.dataset.id;
     my.navigateTo({ url: `pages/recipe/index?id=${recipeId}` });
+  },
+
+  async onSelectCategory(e) {
+    if (e.id === this.data.selectedCategory?.id) {
+      this.setData({ selectedCategory: null });
+      const response = await this.handleFilterRecipe({
+        ...this.data.filterParams,
+        categoryId: undefined,
+      });
+      if (!_.isEmpty(response)) {
+        this.setData({
+          recipes: response.recipes,
+        });
+
+        console.log(response.recipes);
+        return;
+      }
+      this.setData({
+        recipes: [],
+      });
+    } else {
+      this.setData({ selectedCategory: e });
+      const response = await this.handleFilterRecipe({
+        ...this.data.filterParams,
+        categoryId: e.id,
+      });
+      if (!_.isEmpty(response)) {
+        this.setData({
+          recipes: response.recipes,
+        });
+
+        console.log(response.recipes);
+        return;
+      }
+      this.setData({
+        recipes: [],
+      });
+    }
   },
 });

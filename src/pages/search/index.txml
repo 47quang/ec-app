@@ -4,7 +4,7 @@
 
 <view class="dropdown-container">
   <dropdown showCheck="{{true}}" className="category-dropdown" bottomSheetHeight="600" bottomSheetTitle="Danh mục"
-    labelKey="label" idKey="key" items="{{categories}}" value="{{null}}" onSelect="onSelect2" placeholder="Danh mục">
+    labelKey="name" idKey="id" items="{{categories}}" value="{{selectedCategory}}" onSelect="onSelectCategory" placeholder="Danh mục">
   </dropdown>
 
   <dropdown showSearch="{{true}}" className="tag-dropdown" bottomSheetHeight="800" bottomSheetTitle="Hashtag"
