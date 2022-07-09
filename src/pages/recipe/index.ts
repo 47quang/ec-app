@@ -40,24 +40,6 @@ Page<RecipeData, RecipeMethods>({
 
     const savedRecipes = await getRecipes();
     this.setData({ savedRecipes: savedRecipes || [] });
-
-    (my as any).addIconsToNavigationBar({
-      icons: [
-        {
-          image: '../../public/assets/icons/order.svg',
-          width: 25,
-          height: 25,
-        },
-      ],
-      padding: 10,
-      success: (res: any) => {
-        console.log(res);
-      },
-      fail: (res: any) => {
-        console.log(res);
-      },
-    });
-
     const recipe: any = await RecipeService.getRecipeById(id);
 
     this.setData({ recipe, id });
@@ -181,16 +163,4 @@ Page<RecipeData, RecipeMethods>({
     });
     saveRecipes(newSavedRecipes);
   },
-
-  // onCustomIconEvent(_e: any) {
-  //   (my as any).openScreen({
-  //     screenCode: 'TK_CART',
-  //     success: (res: any) => {
-  //       console.log({ res });
-  //     },
-  //     fail: (res: any) => {
-  //       console.log({ res });
-  //     },
-  //   });
-  // },
 });
